@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime, timedelta, date
+import time
 
 PLAYER_URL = "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/2020-21/gws/merged_gw.csv"
 columns = []
@@ -8,6 +9,7 @@ df = pd.read_csv(PLAYER_URL)
 difficult_teams = [5, 9, 11, 12, 13, 17]  # big six
 df["difficult"] = df["opponent_team"].apply(lambda x: 1 if x in difficult_teams else 0)
 df["kickoff_time"] = pd.to_datetime(df["kickoff_time"]).dt.date
+df["was_home"] = df["was_home"].apply(lambda x: 1 if x else 0)
 
 
 def form(player, kickoff):
@@ -20,6 +22,9 @@ def form(player, kickoff):
     return form
 
 
+start = time.time()
 df["form"] = df.apply(lambda x: form(x["element"], x["kickoff_time"]), axis=1)
+end = time.time()
+print(end - start)
 
 df.to_csv("fpl.csv", index=False)
