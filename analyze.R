@@ -45,3 +45,12 @@ summary(ict_form)
 summary(ict_form_value)
 
 # Summarize: look at ICT and Form, they're the most important
+
+
+# Splitting ICT into it I, C and T ------------------------------------------------------------
+
+i_c_t_form = lm(total_points ~ influence + creativity + threat + form, data=fpl)
+i_t_form = lm(total_points ~ influence + threat + form, data=fpl)
+anova(i_c_t_form, i_t_form)
+# Model not better with creativity
+# Summarize: Look at influence, threat and form
