@@ -53,4 +53,6 @@ i_c_t_form = lm(total_points ~ influence + creativity + threat + form, data=fpl)
 i_t_form = lm(total_points ~ influence + threat + form, data=fpl)
 anova(i_c_t_form, i_t_form)
 # Model not better with creativity
+
+summary(i_t_form)
 # Summarize: Look at influence, threat and form
